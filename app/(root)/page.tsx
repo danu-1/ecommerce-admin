@@ -16,7 +16,7 @@ export default function Home() {
             <div className="flex flex-col items-center space-y-4">
               <p className="text-lg">Welcome back, {user?.firstName || user?.emailAddresses[0]?.emailAddress}!</p>
               <UserButton afterSignOutUrl="/" />
-              <Button size="default" variant="destructive">Admin Action</Button>
+              This is a protected Route!
             </div>
           ) : (
             // Unauthenticated user content
