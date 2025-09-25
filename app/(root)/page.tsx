@@ -1,10 +1,15 @@
 "use client";
 
+import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
+import { StoreCreateModal } from "@/components/store-switcher";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
     const { isSignedIn, user } = useUser();
+    const [open, setOpen] = React.useState(false);
+    const router = useRouter();
 
     return (
       <div className="p-4">
@@ -16,7 +21,8 @@ export default function Home() {
             <div className="flex flex-col items-center space-y-4">
               <p className="text-lg">Welcome back, {user?.firstName || user?.emailAddresses[0]?.emailAddress}!</p>
               <UserButton afterSignOutUrl="/" />
-              This is a protected Route!
+              <Button onClick={() => setOpen(true)}>Create store</Button>
+              <StoreCreateModal open={open} onOpenChange={setOpen} onCreated={(id) => router.push(`/${id}`)} />
             </div>
           ) : (
             // Unauthenticated user content
